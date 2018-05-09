@@ -54,4 +54,8 @@ public class FunctionController extends Thread implements ActionListener {
         }
 
     }
+
+    public void checkSignIn(){
+
+    }
 }
