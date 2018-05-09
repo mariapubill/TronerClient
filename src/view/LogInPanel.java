@@ -1,5 +1,7 @@
 package view;
 
+import model.User;
+
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
@@ -317,4 +319,11 @@ public class LogInPanel extends JPanel {
             jtfPassword.setForeground(Color.lightGray);
         }
     }
+     public User getUserLogin(){
+        String username = jtfUsername.getText();
+        String password = jtfPassword.getPassword().toString();
+        User u = new User(username, password, " ", " ", " ");
+        return u;
+     }
+
 }

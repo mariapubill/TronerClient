@@ -6,6 +6,7 @@ import model.User;
 import view.GameMainView;
 
 import javax.swing.*;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,9 +20,7 @@ import java.net.Socket;
  */
 public class NetworkServiceUser extends Thread {
     private ObjectOutputStream doStreamO;
-    // Relacio amb el controlador per notificar si hi ha problemes
-    // durant lenviament dels missatges
-    // Direccio IP i port del servidor
+
     private static final String IP = "127.0.0.1";
     private static final int PORT_USER = 12345;
 
@@ -40,7 +39,6 @@ public class NetworkServiceUser extends Thread {
         try {
             this.isOn = false;
             this.finestra = finestra;
-            // connectem amb el servidor i obrim els canals de comunicacio
             this.socketToServer = new Socket(IP, PORT_USER);
             this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
             this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
@@ -57,7 +55,6 @@ public class NetworkServiceUser extends Thread {
      * comença la comunicació amb el servidor
      */
     public void startServerComunication() {
-        // iniciem la comunicacio amb el servidor
         isOn = true;
         this.start();
     }
@@ -66,7 +63,6 @@ public class NetworkServiceUser extends Thread {
      * Finalitza la comunicacio amb el servidor
      */
     public void stopServerComunication() {
-        //aturem la comunicacio amb el servidor
         this.isOn = false;
         this.interrupt();
     }
@@ -74,15 +70,15 @@ public class NetworkServiceUser extends Thread {
     public void run() {
 
         try {
-            User aux1 =(User)objectIn.readObject();
-            System.out.println("ha llegit el client el seguent objecte "+ aux1.getNickname());
+            String aux1 =(String)objectIn.readObject();
+            System.out.println("ha llegit el client el seguent objecte "+ aux1);
 
 
             while (isOn){
 
                 User hey = new User("client", "guai","email","data register", "data acces");
-                User aux =(User)objectIn.readObject();
-                System.out.println("el client ha llegit "+aux.getNickname());
+                // User aux =(User)objectIn.readObject();
+               // System.out.println("el client ha llegit desde el while "+aux.getNickname());
                 //escolta les actualizacions de lestat del model
                 //que envia el servidor quan algun client fa clic
                 //a al botor de send7
@@ -103,17 +99,37 @@ public class NetworkServiceUser extends Thread {
 
     public void sendParameter(String selection) {
         try {
-            // envia el panell sobre el cual sha fet clic al servidor.
-            // Aixo provocara que el servidor actualitzi el model i que
-            // a continuacio envii lestat del model a tots els clients,
-            // inclos aquest mateix.
-            doStreamO.writeObject(new User(selection," ", " "," ", " "));
+            doStreamO.writeObject(selection);
+            System.out.println("ha escrit el que toca");
+
+
         } catch (IOException e) {
             e.printStackTrace();
-            // si hi ha algun problema satura la comunicacio amb el servidor
             stopServerComunication();
             System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
-        }
+        } /*catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }*/
     }
+
+    public boolean checkIfIsOkay(User userToSend) {
+        boolean isOkay = false;
+        try {
+            doStreamO.writeObject(userToSend);
+            isOkay =(boolean)objectIn.readObject();
+            System.out.println("mirem si is okay "+ isOkay);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            stopServerComunication();
+            System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return isOkay;
+    }
+
+
 
 }

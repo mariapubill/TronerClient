@@ -2,9 +2,6 @@
 package controller;
 
 
-
-import network.NetworkService;
-import view.GameMainView;
 import view.MainView;
 
 import javax.swing.*;
@@ -54,7 +51,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         if (e.getActionCommand().equals("Login")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
             actualLayout = 5;
-            view.changePanel(actualLayout.toString());
+           // view.changePanel(actualLayout.toString());
 
         }
         if (e.getActionCommand().equals("2game")){

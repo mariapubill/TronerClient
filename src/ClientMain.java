@@ -28,7 +28,7 @@ public class ClientMain {
                 //creem network
                 NetworkServiceUser nService = new NetworkServiceUser(finestra);
                 //Creem els controladors
-                FunctionController fController = new FunctionController(nService);
+                FunctionController fController = new FunctionController(nService, view);
                 view.registerFunctionController(fController);
                // GameController controller = new GameController(finestra,nService);
                 //Establim les "relacions" V->C

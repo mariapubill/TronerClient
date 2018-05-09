@@ -1,5 +1,7 @@
 package view;
 
+import model.User;
+
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
@@ -305,5 +307,11 @@ public class SignInPanel extends JPanel{
 
     }
 
+    public User getUserSignIn(){
+        String username = jtfNickname.getText();
+        String email = jtfEmail.getText();
+        String password = jtfPassword.getPassword().toString();
+        return new User(username,password,email," "," ");
+    }
 
 }

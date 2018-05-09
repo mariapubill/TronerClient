@@ -6,6 +6,7 @@ package view;
 import controller.Controller;
 import controller.FunctionController;
 import controller.WindowController;
+import model.User;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -162,6 +163,14 @@ public class MainView extends JFrame{
 
     public void setMenuView(MenuView menuView) {
         this.menuView = menuView;
+    }
+
+    public User getUserLogin(){
+        return card3.getUserLogin();
+    }
+
+    public User getUserSignIn(){
+        return card4.getUserSignIn();
     }
 }
 
