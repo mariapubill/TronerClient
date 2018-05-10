@@ -7,6 +7,7 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +68,15 @@ public class SignInPanel extends JPanel{
         jbSignin.addMouseListener(controller);
     }
 
+
+
+    public void registerControllerFocus(FocusListener controller){
+        jtfNickname.addFocusListener(controller);
+        jtfPassword.addFocusListener(controller);
+        jtfRepeatPassword.addFocusListener(controller);
+        jtfEmail.addFocusListener(controller);
+    }
+
     public void augmentButtons(String button, int x){
         if(button.equals("Mute")){
             muteIcon = muteImg.getScaledInstance(x,x,Image.SCALE_DEFAULT);
@@ -113,20 +123,58 @@ public class SignInPanel extends JPanel{
 
     public void changeTextFieldEmpty(String name){
         if(name.equals("Nickname")){
-            jtfNickname.setText("Please input User Name");
-            jtfNickname.setForeground(Color.LIGHT_GRAY);
-        }else if(name.equals("Password1")){
-            jtfPassword.setText("Minimum 8 carachters");
-            jtfPassword.setForeground(Color.lightGray);
-        }else if(name.equals("Email")){
-            jtfEmail.setText("example@gmail.com");
-            jtfEmail.setForeground(Color.LIGHT_GRAY);
-        }else if(name.equals("RPassword")){
-            jtfRepeatPassword.setText("Minimum 8 carachters");
-            jtfRepeatPassword.setForeground(Color.lightGray);
+            if(getNickname().equals("")) {
+                jtfNickname.setText("Please input User Name");
+                jtfNickname.setForeground(Color.LIGHT_GRAY);
+            }
+        }
+        if(name.equals("Password1")){
+            if(getPassword().equals("")) {
+                jtfPassword.setText("Minimum 8 carachters");
+                jtfPassword.setForeground(Color.lightGray);
+            }
+        }
+        if(name.equals("Email")){
+            if(getEmail().equals("")) {
+                jtfEmail.setText("example@gmail.com");
+                jtfEmail.setForeground(Color.LIGHT_GRAY);
+            }
+        }
+        if(name.equals("RPassword")){
+            if(getRepeatPassword().equals("")) {
+                jtfRepeatPassword.setText("Minimum 8 carachters");
+                jtfRepeatPassword.setForeground(Color.lightGray);
+            }
         }
     }
 
+    public void cleanFields(){
+        jtfRepeatPassword.setText("Minimum 8 carachters");
+        jtfRepeatPassword.setForeground(Color.lightGray);
+        jtfEmail.setText("example@gmail.com");
+        jtfEmail.setForeground(Color.LIGHT_GRAY);
+        jtfPassword.setText("Minimum 8 carachters");
+        jtfPassword.setForeground(Color.lightGray);
+        jtfNickname.setText("Please input User Name");
+        jtfNickname.setForeground(Color.LIGHT_GRAY);
+
+    }
+
+    public JTextField getJtfNickname() {
+        return jtfNickname;
+    }
+
+    public JTextField getJtfEmail() {
+        return jtfEmail;
+    }
+
+    public JPasswordField getJtfPassword() {
+        return jtfPassword;
+    }
+
+    public JPasswordField getJtfRepeatPassword() {
+        return jtfRepeatPassword;
+    }
 
     public String getNickname(){
         return jtfNickname.getText();
@@ -203,7 +251,6 @@ public class SignInPanel extends JPanel{
         jtfRepeatPassword = new JPasswordField("Minimum 8 carachters");
         jtfNickname = new JTextField("Please input User Name");
         jtfEmail = new JTextField("example@gmail.com");
-
 
         jtfNickname.setFont(jtfNickname.getFont().deriveFont(Font.PLAIN, 15f));
         jtfPassword.setFont(jtfPassword.getFont().deriveFont(Font.PLAIN, 15f));

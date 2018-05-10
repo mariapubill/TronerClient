@@ -75,6 +75,7 @@ public class MainView extends JFrame{
         card3.registerControllerFocus(c);
         card4.registerControllerButton(c);
         card4.registerControllerMouse(c);
+        card4.registerControllerFocus(c);
         menuView.registerControllerButtons(c);
         this.addKeyListener(c);
     }
@@ -193,6 +194,26 @@ public class MainView extends JFrame{
     }
     public JPasswordField getJtfPassowrd(){
         return card3.getJtfPassword();
+    }
+
+    public JTextField getJtfNicknameS() {
+        return card4.getJtfNickname();
+    }
+
+    public JTextField getJtfEmailS() {
+        return card4.getJtfEmail();
+    }
+
+    public JPasswordField getJtfPasswordS() {
+        return card4.getJtfPassword();
+    }
+
+    public JPasswordField getJtfRepeatPasswordS() {
+        return card4.getJtfRepeatPassword();
+    }
+
+    public void cleanFieldsSignIn(){
+        card4.cleanFields();
     }
 }
 

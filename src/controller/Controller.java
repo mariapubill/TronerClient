@@ -82,6 +82,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         //}
         if (e.getActionCommand().equals("Return")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
+            view.cleanFieldsSignIn();
             switchAndChange();
         }
         if (e.getActionCommand().equals("S")) {
@@ -112,6 +113,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
                 if (view.showDialog("¿Desea volver a la ventana de inicio?", actualLayout)) {
 
+                    view.cleanFieldsSignIn();
                     view.changePanel(actualLayout.toString());
                 }
 
@@ -433,9 +435,20 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
         }
         if(e.getSource().toString().equals(view.getJtfPassowrd().toString())){
-            System.out.println("esta entrant al passsword");
             view.changeTextFields("PasswordL");
 
+        }
+        if(e.getSource().toString().equals(view.getJtfNicknameS().toString())){
+            view.changeTextFields("Nickname");
+        }
+        if(e.getSource().toString().equals(view.getJtfEmailS().toString())){
+            view.changeTextFields("Email");
+        }
+        if(e.getSource().toString().equals(view.getJtfPasswordS().toString())){
+            view.changeTextFields("Password1");
+        }
+        if(e.getSource().toString().equals(view.getJtfRepeatPasswordS().toString())){
+            view.changeTextFields("RPassword");
         }
     }
 
@@ -446,9 +459,23 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
         }
         if(e.getSource().toString().equals(view.getJtfPassowrd().toString())){
-            System.out.println("esta sortint del password");
             view.changeTextFieldsEmpty("PasswordL");
         }
+        if(e.getSource().toString().equals(view.getJtfNicknameS().toString())){
+            view.changeTextFieldsEmpty("Nickname");
+        }
+        if(e.getSource().toString().equals(view.getJtfEmailS().toString())){
+            view.changeTextFieldsEmpty("Email");
+        }
+        if(e.getSource().toString().equals(view.getJtfPasswordS().toString())){
+            view.changeTextFieldsEmpty("Password1");
+        }
+        if(e.getSource().toString().equals(view.getJtfRepeatPasswordS().toString())){
+            view.changeTextFieldsEmpty("RPassword");
+        }
+
+
+
 
 
     }

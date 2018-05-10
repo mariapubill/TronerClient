@@ -268,7 +268,6 @@ public class LogInPanel extends JPanel {
         }
         if(name.equals("PasswordL")){
             jtfPassword.setText("");
-            System.out.println(jtfPassword.getPassword().toString()+".aixo es el que he escrit");
             jtfPassword.setForeground(Color.black);
         }
     }
@@ -319,8 +318,7 @@ public class LogInPanel extends JPanel {
 
         }
         if(name.equals("PasswordL")){
-            System.out.println("el valo del password al panel ."+ jtfPassword.getPassword().toString()+".");
-            if(jtfPassword.getPassword().toString().equals("")) {
+            if(getPassword().equals("")) {
                 jtfPassword.setText("Minimum 8 carachters");
                 jtfPassword.setForeground(Color.lightGray);
             }
