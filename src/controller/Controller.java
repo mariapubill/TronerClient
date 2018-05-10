@@ -51,6 +51,9 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         if (e.getActionCommand().equals("Login")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
             actualLayout = 5;
+            /**
+             * fet al function controller
+             */
            // view.changePanel(actualLayout.toString());
 
         }
@@ -126,8 +129,8 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         }
         if (e.getActionCommand().equals("Signin")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
-            actualLayout = 5;
-            view.changePanel(actualLayout.toString());
+           // actualLayout = 5;
+           // view.changePanel(actualLayout.toString());
         }
 
     }
@@ -141,27 +144,37 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
             //actualLayout = 2;
             //music.stopMusic();
             //music.runMusic(new File("data/Laser.wav"));
-            try {
+            //try {
                 stopMusic();
                 // isBack = true;
                 t.start();
                 soundNow = true;
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(1600);
+                            //music.stopMusic();
+                            TimeUnit.MILLISECONDS.sleep(500);
+                            actualLayout++;
+                            view.changePanel(actualLayout.toString());
+                        }catch( InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                });
+                t.start();
 
-                 TimeUnit.MILLISECONDS.sleep(1600);
-                //music.stopMusic();
-                 TimeUnit.MILLISECONDS.sleep(500);
-                actualLayout++;
-                view.changePanel(actualLayout.toString());
+
                 soundNow = false;
                 //closeSound = false;
                 //startMusic();
                 //music.runMusic(new File("data/LogInTheme.wav"));
 
-            } catch (InterruptedException e1) {
+            } /*catch (InterruptedException e1) {
                 e1.printStackTrace();
-            }
+            }*/
 
-            }
+
         }
 
 
@@ -236,36 +249,36 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     public void mouseClicked(MouseEvent e) {
         if (activateN == false && e.getComponent().getY() == 0) {
             //Hablar esto, me entra abajo
-            view.changeTextFields("Username");
+           // view.changeTextFields("Username");
 //            ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
             actualLayout++;
             activateN = true;
         }
 
         if (activateP == false&& e.getComponent().getY() == 124) {
-            view.changeTextFields("Password");
+            //view.changeTextFields("Password");
             ((JTextField)e.getSource()).getTopLevelAncestor().requestFocus();
             activateP=true;
         }
 
         if (e.getComponent().getY() == 47 && activate1==false) {
             ((JTextField)e.getSource()).getTopLevelAncestor().requestFocus();
-            view.changeTextFields("Nickname");
+            //view.changeTextFields("Nickname");
             activate1 = true;
         }
         if (e.getComponent().getY() == 141 && activate2==false) {
             ((JTextField)e.getSource()).getTopLevelAncestor().requestFocus();
-            view.changeTextFields("Email");
+            //view.changeTextFields("Email");
             activate2 = true;
         }
         if (e.getComponent().getY() == 235 && activate3==false) {
             ((JPasswordField)e.getSource()).getTopLevelAncestor().requestFocus();
-            view.changeTextFields("Password1");
+            //view.changeTextFields("Password1");
             activate3 = true;
         }
         if (e.getComponent().getY() == 329 && activate4==false) {
             ((JPasswordField)e.getSource()).getTopLevelAncestor().requestFocus();
-            view.changeTextFields("RPassword");
+            //view.changeTextFields("RPassword");
             activate4 = true;
         }
     }
@@ -415,13 +428,27 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
     @Override
     public void focusGained(FocusEvent e) {
+        if(e.getSource().toString().equals(view.getJtfUsername().toString())){
+            view.changeTextFields("UsernameL");
 
-        System.out.println("this is focus gained "+e);
+        }
+        if(e.getSource().toString().equals(view.getJtfPassowrd().toString())){
+            System.out.println("esta entrant al passsword");
+            view.changeTextFields("PasswordL");
+
+        }
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-        System.out.println("this is focus lost "+e);
+        if(e.getSource().toString().equals(view.getJtfUsername().toString())){
+            view.changeTextFieldsEmpty("UsernameL");
+
+        }
+        if(e.getSource().toString().equals(view.getJtfPassowrd().toString())){
+            System.out.println("esta sortint del password");
+            view.changeTextFieldsEmpty("PasswordL");
+        }
 
 
     }

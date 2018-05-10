@@ -307,11 +307,6 @@ public class SignInPanel extends JPanel{
 
     }
 
-    public User getUserSignIn(){
-        String username = jtfNickname.getText();
-        String email = jtfEmail.getText();
-        String password = jtfPassword.getPassword().toString();
-        return new User(username,password,email," "," ");
-    }
+
 
 }

@@ -24,6 +24,8 @@ public class LogInPanel extends JPanel {
     private Image icon;
     private Image muteImg;
     private Image muteIcon;
+
+
     private JButton jbMute;
     private JFrame jfBackground;
     private boolean activateU;
@@ -238,7 +240,6 @@ public class LogInPanel extends JPanel {
         JPanel jpaux = new JPanel();
         jpaux.setPreferredSize(new Dimension(50, 50));
         jpaux.setOpaque(false);
-        // add(jpaux, c);
 
         c.weighty = 10;
         c.gridx = 0;
@@ -246,7 +247,6 @@ public class LogInPanel extends JPanel {
         c.ipadx = 1;
         jpaux2.setPreferredSize(new Dimension(30, 10));
         jpaux2.setOpaque(false);
-        //add(jpaux2, c);
 
         this.add(jpNorth,BorderLayout.NORTH);
         this.add(jpAux,BorderLayout.CENTER);
@@ -258,17 +258,17 @@ public class LogInPanel extends JPanel {
             font = font.deriveFont(x);
             jbLogin.setFont(font);
             jbLogin.setOpaque(false);
-
         }
-
     }
 
     public void changeTextField(String name){
-        if(name.equals("Username")){
+        if(name.equals("UsernameL")){
             jtfUsername.setText("");
             jtfUsername.setForeground(Color.black);
-        }else if(name.equals("Password")){
+        }
+        if(name.equals("PasswordL")){
             jtfPassword.setText("");
+            System.out.println(jtfPassword.getPassword().toString()+".aixo es el que he escrit");
             jtfPassword.setForeground(Color.black);
         }
     }
@@ -311,14 +311,22 @@ public class LogInPanel extends JPanel {
     }
 
     public void changeTextFieldEmpty(String name){
-        if(name.equals("Username")){
-            jtfUsername.setText("Please input User Name");
-            jtfUsername.setForeground(Color.LIGHT_GRAY);
-        }else if(name.equals("Password")){
-            jtfPassword.setText("Minimum 8 carachters");
-            jtfPassword.setForeground(Color.lightGray);
+        if(name.equals("UsernameL")){
+            if (jtfUsername.getText().equals("")) {
+                jtfUsername.setText("Please input User Name");
+                jtfUsername.setForeground(Color.LIGHT_GRAY);
+            }
+
+        }
+        if(name.equals("PasswordL")){
+            System.out.println("el valo del password al panel ."+ jtfPassword.getPassword().toString()+".");
+            if(jtfPassword.getPassword().toString().equals("")) {
+                jtfPassword.setText("Minimum 8 carachters");
+                jtfPassword.setForeground(Color.lightGray);
+            }
         }
     }
+
      public User getUserLogin(){
         String username = jtfUsername.getText();
         String password = jtfPassword.getPassword().toString();
@@ -326,4 +334,12 @@ public class LogInPanel extends JPanel {
         return u;
      }
 
+
+    public JTextField getJtfUsername() {
+        return jtfUsername;
+    }
+
+    public JPasswordField getJtfPassword() {
+        return jtfPassword;
+    }
 }

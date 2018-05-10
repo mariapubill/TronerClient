@@ -170,7 +170,29 @@ public class MainView extends JFrame{
     }
 
     public User getUserSignIn(){
-        return card4.getUserSignIn();
+        return new User(card4.getNickname(),card4.getPassword(),card4.getEmail()," "," ");
+    }
+
+    public String getNicknameS(){
+        return card4.getNickname();
+    }
+    public String getPasswordS(){
+        return card4.getPassword();
+    }
+
+    public String getRepeatPasswordS(){
+        return card4.getRepeatPassword();
+    }
+
+    public String getEmail(){
+        return card4.getEmail();
+    }
+
+    public JTextField getJtfUsername(){
+        return card3.getJtfUsername();
+    }
+    public JPasswordField getJtfPassowrd(){
+        return card3.getJtfPassword();
     }
 }
 

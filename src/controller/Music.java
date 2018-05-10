@@ -20,9 +20,8 @@ public class Music implements Runnable  {
 
     public Music(Controller controller){
         this.controller = controller;
-
-
     }
+
     public void run() {
         try {
 
