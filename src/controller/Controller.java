@@ -147,6 +147,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
             //music.stopMusic();
             //music.runMusic(new File("data/Laser.wav"));
             //try {
+            actualLayout++;
                 stopMusic();
                 // isBack = true;
                 t.start();
@@ -157,7 +158,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
                             TimeUnit.MILLISECONDS.sleep(1600);
                             //music.stopMusic();
                             TimeUnit.MILLISECONDS.sleep(500);
-                            actualLayout++;
+
                             view.changePanel(actualLayout.toString());
                         }catch( InterruptedException e1) {
                             e1.printStackTrace();

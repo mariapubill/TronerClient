@@ -327,7 +327,7 @@ public class LogInPanel extends JPanel {
 
      public User getUserLogin(){
         String username = jtfUsername.getText();
-        String password = jtfPassword.getPassword().toString();
+        String password = getPassword();
         User u = new User(username, password, " ", " ", " ");
         return u;
      }
