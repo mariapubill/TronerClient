@@ -1,9 +1,8 @@
-kage view;
+package view;
 
 import controller.Controller;
 import controller.GameController;
 import model.ServerGrid;
-import view.BackgroundImageJFrame;
 
 import javax.sound.sampled.Clip;
 import javax.swing.*;
