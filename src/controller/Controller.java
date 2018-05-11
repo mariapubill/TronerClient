@@ -58,7 +58,10 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
         }
         if (e.getActionCommand().equals("2game")){
+            actualLayout = 7;
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
+            view.changePanel(actualLayout.toString());
+
             //startGame();
         }
         if (e.getActionCommand().equals("4game")){

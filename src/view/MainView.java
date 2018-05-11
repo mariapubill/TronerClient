@@ -23,6 +23,7 @@ public class MainView extends JFrame{
     private SignInPanel card4;
     private MenuView menuView;
     private CardLayout layout;
+    private GameMainView gameMainView;
     private Clip clip;
     //private JPanel
 
@@ -41,7 +42,7 @@ public class MainView extends JFrame{
         card2 = new LogSignPanel();
         card3 = new LogInPanel();
         card4 = new SignInPanel();
-
+        gameMainView = new GameMainView();
         this.setContentPane(bgPanel);
         menuView = new MenuView(this);
 
@@ -51,6 +52,7 @@ public class MainView extends JFrame{
         bgPanel.add("3",card3);
         bgPanel.add("4",card4);
         bgPanel.add("5",menuView);
+        bgPanel.add("7",gameMainView);
         layout.show(bgPanel, "1");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
