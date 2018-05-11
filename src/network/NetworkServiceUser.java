@@ -131,5 +131,20 @@ public class NetworkServiceUser extends Thread {
     }
 
 
+    public boolean checkReady() {
+        boolean ready = false;
+        try {
+            ready =(boolean)objectIn.readObject();
+            System.out.println(ready);
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            stopServerComunication();
+            System.out.println("*** ha saltat el catch del ready ***");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ready;
+    }
 }

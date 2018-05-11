@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 public class MenuView extends JPanel {
@@ -427,7 +428,25 @@ public class MenuView extends JPanel {
     public void registerControllerButtons(Controller controller) {
 
         jButton.addActionListener(controller);
-        jButton.setActionCommand("2game");
+        jButton.setActionCommand("gameTwo");
+        jButton2.addActionListener(controller);
+        jButton2.setActionCommand("4game");
+        jButton3.addActionListener(controller);
+        jButton3.setActionCommand("Tournament");
+        jButton4.addActionListener(controller);
+        jButton4.setActionCommand("Exit");
+        jButton5.addActionListener(controller);
+        jButton5.setActionCommand("Return");
+        jButton6.addActionListener(controller);
+        jButton6.setActionCommand("Mute");
+        jButton7.addActionListener(controller);
+        jButton7.setActionCommand("Settings");
+
+
+    }
+    public void registerControllerButton(ActionListener controller){
+        jButton.addActionListener(controller);
+        jButton.setActionCommand("gameTwo");
         jButton2.addActionListener(controller);
         jButton2.setActionCommand("4game");
         jButton3.addActionListener(controller);

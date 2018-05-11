@@ -2,6 +2,7 @@
 package controller;
 
 
+import network.NetworkServiceUser;
 import view.MainView;
 
 import javax.swing.*;
@@ -9,6 +10,8 @@ import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
 public class Controller extends Thread implements ActionListener, KeyListener, MouseListener, FocusListener {
+
+    private FunctionController functionController;
     private Timer t;
     private int x;
     private int acum;
@@ -57,19 +60,21 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
            // view.changePanel(actualLayout.toString());
 
         }
-        if (e.getActionCommand().equals("2game")){
+        if (e.getActionCommand().equals("gameTwo")){
+           // ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
+
             actualLayout = 7;
-            ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
             view.changePanel(actualLayout.toString());
 
-            //startGame();
+
+
+
         }
         if (e.getActionCommand().equals("4game")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
         }
         if (e.getActionCommand().equals("Tournament")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
-
         }
         if (e.getActionCommand().equals("Exit")){
             if (view.showDialog("¿Desea salir del juego?", actualLayout)) {

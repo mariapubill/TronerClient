@@ -86,7 +86,7 @@ public class MainView extends JFrame{
         card2.registerControllerButtons(c);
         card3.registerControllerButton(c);
         card4.registerControllerButton(c);
-
+        menuView.registerControllerButton(c);
     }
 
 
