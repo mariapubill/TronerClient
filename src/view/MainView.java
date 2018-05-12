@@ -24,11 +24,13 @@ public class MainView extends JFrame{
     private MenuView menuView;
     private CardLayout layout;
     private GameMainView gameMainView;
+    private ConnexionView connexionView;
     private Clip clip;
     //private JPanel
 
 
     public MainView(){
+        this.setTitle("TRONER");
         this.setMinimumSize(new Dimension(800,600));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(1000, 600);
@@ -43,6 +45,7 @@ public class MainView extends JFrame{
         card3 = new LogInPanel();
         card4 = new SignInPanel();
         gameMainView = new GameMainView();
+        connexionView = new ConnexionView();
         this.setContentPane(bgPanel);
         menuView = new MenuView(this);
 
@@ -51,16 +54,20 @@ public class MainView extends JFrame{
         bgPanel.add("2",card2);
         bgPanel.add("3",card3);
         bgPanel.add("4",card4);
-        bgPanel.add("5",menuView);
         bgPanel.add("7",gameMainView);
-        layout.show(bgPanel, "1");
+        bgPanel.add("0",connexionView);
+        bgPanel.add("5",menuView);
+
+        layout.show(bgPanel, "0");
+
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setContentPane(bgPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize((int)(screenSize.width*(25.0/36)), (int)(screenSize.height*(2.0/3)));
+        this.setSize((int)(screenSize.width*((float)25.0/45)), (int)(screenSize.height*(2.0/3)));
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.setResizable(false);
     }
 
 
@@ -70,6 +77,7 @@ public class MainView extends JFrame{
 
 
     public void registerController(Controller c){
+        connexionView.registerControllerConnexionView(c);
         card2.registerControllerMouse(c);
         card2.registerControllerButtons(c);
         card3.registerControllerMouse(c);
@@ -125,17 +133,24 @@ public class MainView extends JFrame{
 
 
     public boolean showDialog(String message,int i) {
-        int reply = JOptionPane.showConfirmDialog(null, message, "Exit Game", JOptionPane.YES_NO_OPTION);
-        if(reply == JOptionPane.YES_OPTION && i == 1) {
-            //No se si aqui habria que enviarle un mensaje al servidor
-            return true;
-        }
-        if(reply == JOptionPane.YES_OPTION && i == 7){
-            return true;
-            //Aqui corresponde a cerrar el juego
-        }
-        if(reply == JOptionPane.YES_OPTION && i == 5){
-            return true;
+        System.out.println(i);
+        if (i != 10) {
+            int reply = JOptionPane.showConfirmDialog(null, message, "Exit Game", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION && i == 1) {
+                //No se si aqui habria que enviarle un mensaje al servidor
+                return true;
+            }
+            if (reply == JOptionPane.YES_OPTION && i == 7) {
+                return true;
+                //Aqui corresponde a cerrar el juego
+            }
+            if (reply == JOptionPane.YES_OPTION && i == 5) {
+                return true;
+            }
+
+            return false;
+        } else {
+            JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.WARNING_MESSAGE);
         }
         return false;
     }
@@ -216,6 +231,22 @@ public class MainView extends JFrame{
 
     public void cleanFieldsSignIn(){
         card4.cleanFields();
+    }
+
+    public ConnexionView getConnexionView() {
+        return connexionView;
+    }
+
+    public void setConnexionView(ConnexionView connexionView) {
+        this.connexionView = connexionView;
+    }
+
+    public GameMainView getGameMainView() {
+        return gameMainView;
+    }
+
+    public void setGameMainView(GameMainView gameMainView) {
+        this.gameMainView = gameMainView;
     }
 }
 

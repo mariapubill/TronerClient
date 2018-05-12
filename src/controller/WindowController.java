@@ -1,8 +1,7 @@
 package controller;
 
-import view.*;
+import view.MainView;
 
-import javax.swing.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -20,19 +19,17 @@ public class WindowController implements ComponentListener {
      //   controller.setActualLayout(controller.getActualLayout());
         //controller.setActualLayout(controller.ge);
        // System.out.println(controller.getActualLayout());
-        if(controller.getActualLayout().equals(5)) {
             mainView.getMenuView().changeSize(mainView);
             //mainView.getBgPanel().remove(controller.getActualLayout() - 1);
            // mainView.getBgPanel().add(controller.getActualLayout().toString(), selectJpanel());
            // mainView.changePanel(controller.getActualLayout().toString());
-        }
-        mainView.getBgPanel().revalidate();
-        mainView.getBgPanel().repaint();
+             mainView.getBgPanel().revalidate();
+             mainView.getBgPanel().repaint();
 
         //.registerController(controller);
     //  e.getComponent().getA
     }
-
+    /*
     private JPanel selectJpanel() {
         JPanel jPanel = new JPanel();
         switch (controller.getActualLayout()){
@@ -56,7 +53,7 @@ public class WindowController implements ComponentListener {
             case 7:
         }
         return jPanel;
-    }
+    }*/
 
     @Override
     public void componentMoved(ComponentEvent e) {

@@ -1,13 +1,6 @@
 import controller.Controller;
-import controller.FunctionController;
-import controller.GameController;
 import controller.WindowController;
-import network.NetworkService;
-import network.NetworkServiceUser;
-import view.GameMainView;
 import view.MainView;
-
-import javax.swing.*;
 
 public class ClientMain {
     public static void main(String args[]) {
@@ -20,13 +13,15 @@ public class ClientMain {
         view.registerController(controller);
         view.registerWindowController(windowController);
         view.setVisible(true);
+        /*
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 //creem la vista
                 GameMainView finestra = new GameMainView();
+                ConnexionView connexionView = new ConnexionView();
                 //creem network
-                NetworkServiceUser nService = new NetworkServiceUser(finestra);
+                NetworkServiceUser nService = new NetworkServiceUser(finestra, connexionView);
                 //Creem els controladors
                 FunctionController fController = new FunctionController(nService, view);
                 view.registerFunctionController(fController);
@@ -38,6 +33,6 @@ public class ClientMain {
                 //finestra.setVisible(true);
 
             }
-        });
+        });*/
     }
 }

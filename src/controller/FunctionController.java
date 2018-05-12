@@ -15,7 +15,6 @@ public class FunctionController extends Thread implements ActionListener {
     private MainView view;
     private Integer actualLayout = 1;
     private User userAux;
-    private boolean ready;
 
 
 
@@ -27,51 +26,38 @@ public class FunctionController extends Thread implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-        if (e.getActionCommand().equals("gameTwo")){
-            nService.sendParameter("gameTwo");
-            ready=nService.checkReady();
-            System.out.println(ready+"ready al fc");
-
-        }
-        if (e.getActionCommand().equals("4game")){
-            System.out.println("he entrat al action comand 4");
-            ((JButton) e.getSource()).getTopLevelAncestor().requestFocus();
-        }
-        if (e.getActionCommand().equals("Tournament")) {
-            System.out.println("he entrat al action comand tournement");
-            ((JButton) e.getSource()).getTopLevelAncestor().requestFocus();
-        }
-        if (e.getActionCommand().equals("Login")) {
+        if (e.getActionCommand().equals("Login")){
             nService.sendParameter("login");
             login = nService.checkIfIsOkay(view.getUserLogin());
-            if (login) {
+            if(login){
                 actualLayout = 5;
-
                 view.changePanel(actualLayout.toString());
-            } else {
-                JOptionPane.showMessageDialog(null, "CAN'T LOGIN", "Inane error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "CAN'T LOGIN","Inane error", JOptionPane.ERROR_MESSAGE);
 
             }
-        }
-            if (e.getActionCommand().equals("Signin")){
-                if (checkSignIn() != 4) {
-                    setErrorMessage();
+        }else if(e.getActionCommand().equals("Signin")){
+            if(checkSignIn() != 4){
+                setErrorMessage();
+            }else {
+                nService.sendParameter("sign");
+                signin = nService.checkIfIsOkay(view.getUserSignIn());
+                if (signin) {
+                    actualLayout = 5;
+                    view.changePanel(actualLayout.toString());
                 } else {
-                    nService.sendParameter("sign");
-                    signin = nService.checkIfIsOkay(view.getUserSignIn());
-                    if (signin) {
-                        actualLayout = 5;
-                        view.changePanel(actualLayout.toString());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "CANT SIGNIN", "Inane error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(null, "CANT SIGNIN", "Inane error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        }else if (e.getActionCommand().equals("2game")){
+            nService.sendParameter("2game");
 
+        }else if (e.getActionCommand().equals("4game")){
+            ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
+        }else if (e.getActionCommand().equals("Tournament")){
+            ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
         }
-
-
+    }
 
 
     public void setErrorMessage(){
@@ -149,5 +135,6 @@ public class FunctionController extends Thread implements ActionListener {
         }
         return ok;
     }
+
 
 }

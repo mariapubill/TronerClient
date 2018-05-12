@@ -20,8 +20,9 @@ public class Music implements Runnable  {
 
     public Music(Controller controller){
         this.controller = controller;
-    }
 
+
+    }
     public void run() {
         try {
 
@@ -45,7 +46,7 @@ public class Music implements Runnable  {
                         changeMusic = true;
                     }
 
-                    if (!music.isOpen()) {
+                    if (!music.isOpen()&& !controller.duringThread()) {
                         runMusic(new File("data/LogInTheme.wav"));
                     }
                 } else {
@@ -58,7 +59,7 @@ public class Music implements Runnable  {
                     }
 
                     if(!music.isOpen()){
-                            changeMusic = false;
+                        changeMusic = false;
                                /* try {
 
                                    //
@@ -71,21 +72,21 @@ public class Music implements Runnable  {
                         }
                         runMusic(new File(playlist.get(numClip)));
                     }else{
-                    if(!changeMusic) {
-                        music.addLineListener(new LineListener() {
-                            @Override
-                            public void update(LineEvent event) {
-                                if (event.getType() == LineEvent.Type.STOP) {
-                                    event.getLine().close();
-                                    music.close();
-                                    changeMusic = false;
+                        if(!changeMusic) {
+                            music.addLineListener(new LineListener() {
+                                @Override
+                                public void update(LineEvent event) {
+                                    if (event.getType() == LineEvent.Type.STOP) {
+                                        event.getLine().close();
+                                        music.close();
+                                        changeMusic = false;
+                                    }
                                 }
-                            }
 
-                        });
-                    }else{
-                        changeMusic = false;
-                    }
+                            });
+                        }else{
+                            changeMusic = false;
+                        }
                     }
                 }
             } else {

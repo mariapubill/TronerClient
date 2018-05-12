@@ -428,7 +428,7 @@ public class MenuView extends JPanel {
     public void registerControllerButtons(Controller controller) {
 
         jButton.addActionListener(controller);
-        jButton.setActionCommand("gameTwo");
+        jButton.setActionCommand("2game");
         jButton2.addActionListener(controller);
         jButton2.setActionCommand("4game");
         jButton3.addActionListener(controller);
@@ -446,7 +446,7 @@ public class MenuView extends JPanel {
     }
     public void registerControllerButton(ActionListener controller){
         jButton.addActionListener(controller);
-        jButton.setActionCommand("gameTwo");
+        jButton.setActionCommand("2game");
         jButton2.addActionListener(controller);
         jButton2.setActionCommand("4game");
         jButton3.addActionListener(controller);

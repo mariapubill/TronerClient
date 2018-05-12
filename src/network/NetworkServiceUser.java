@@ -1,12 +1,10 @@
 package network;
 
-import model.Petition;
-import model.ServerGrid;
 import model.User;
 import view.GameMainView;
+import view.MainView;
 
 import javax.swing.*;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,10 +18,8 @@ import java.net.Socket;
  */
 public class NetworkServiceUser extends Thread {
     private ObjectOutputStream doStreamO;
-
     private static final String IP = "127.0.0.1";
     private static final int PORT_USER = 12345;
-
     private Socket socketToServer;
     private GameMainView finestra;
     private ObjectInputStream objectIn;
@@ -33,22 +29,35 @@ public class NetworkServiceUser extends Thread {
 
     /**
      * constructor amb paramentres
-     * @param finestra ens permetra actualitzar la finestra al rebre una dada
+     * @param connexionView
      */
-    public NetworkServiceUser(GameMainView finestra) {
-        try {
+    public NetworkServiceUser(MainView mainView) {
+            int foo = 1;
             this.isOn = false;
             this.finestra = finestra;
-            this.socketToServer = new Socket(IP, PORT_USER);
-            this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
-            this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
+            String direction = mainView.getConnexionView().getJtfDirection().getText();
+            String port = mainView.getConnexionView().getjtfIp().getText();
+            System.out.println(port);
+            try {
+                 foo = Integer.parseInt(port);
+            }catch (Exception e){
+                 foo = 1;
+            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
 
-            JOptionPane.showMessageDialog(null, "No esta conectat al servidor, tanqui la finestra", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                System.out.println(isOn+"no lo hace");
+                this.socketToServer = new Socket(direction, foo);
+                this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
+                this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
+                isOn = true;
+
+            } catch (Exception e) {
+                System.out.println(isOn+"La caga");
+             //   JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
+
 
 
     /**
@@ -130,21 +139,11 @@ public class NetworkServiceUser extends Thread {
         return isOkay;
     }
 
+    public boolean isOn() {
+        return isOn;
+    }
 
-    public boolean checkReady() {
-        boolean ready = false;
-        try {
-            ready =(boolean)objectIn.readObject();
-            System.out.println(ready);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            stopServerComunication();
-            System.out.println("*** ha saltat el catch del ready ***");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return ready;
+    public void setOn(boolean on) {
+        isOn = on;
     }
 }

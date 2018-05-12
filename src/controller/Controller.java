@@ -2,16 +2,14 @@
 package controller;
 
 
-import network.NetworkServiceUser;
 import view.MainView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
 public class Controller extends Thread implements ActionListener, KeyListener, MouseListener, FocusListener {
-
-    private FunctionController functionController;
     private Timer t;
     private int x;
     private int acum;
@@ -22,7 +20,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     private boolean isTimeB;
     private boolean isTimeM;
     private boolean stopMusic = true;
-    private Integer actualLayout = 1;
+    private Integer actualLayout = 0;
     private float size;
     private float size2;
     private int size4;
@@ -34,23 +32,58 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     private boolean activate2=false;
     private boolean activate3=false;
     private boolean activate4=false;
-
+    private boolean duringThread=false;
     private boolean activateN;
     private boolean activateP;
+    private boolean isOn =false;
+    private boolean end;
+    private int sizeY = 800;
+    private int sizeX = 600;
 
     public Controller(MainView view) {
         closeSound = false;
         soundNow = false;
         this.view = view;
         music = new Music(this);
-        new Thread(music).start();
         this.run();
         acum = 0;
+        end =false;
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(actualLayout);
+        if(e.getActionCommand().equals("StartConnexion")){
+       //     try {
+               Server server = new Server(view,this);
+               server.start();
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            if(isOn) {
+                   actualLayout = 1;
+                   view.changePanel(actualLayout.toString());
+                new Thread(music).start();
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                view.setSize((int)(screenSize.width*(0.6)), (int)(screenSize.height*(2.0/3)));
+                System.out.println(screenSize.width);
+                System.out.println(screenSize.height);
+                view.setLocationRelativeTo(null);
+                view.setResizable(true);
+               }else {
+                //       }catch (Exception Error){
+                view.showDialog("Error en la introduccion de Direccion / Puertos", 10);
+            }
+            ((JButton) e.getSource()).getTopLevelAncestor().requestFocus();
+     }
+        if(e.getActionCommand().equals("Return")){
+
+            ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
+        }
+
         if (e.getActionCommand().equals("Login")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
             actualLayout = 5;
@@ -60,21 +93,22 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
            // view.changePanel(actualLayout.toString());
 
         }
-        if (e.getActionCommand().equals("gameTwo")){
-           // ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
-
+        if (e.getActionCommand().equals("2game")){
+            System.out.println("hola");
             actualLayout = 7;
+            ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
             view.changePanel(actualLayout.toString());
+            view.setExtendedState(view.MAXIMIZED_BOTH);
 
 
-
-
+            //startGame();
         }
         if (e.getActionCommand().equals("4game")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
         }
         if (e.getActionCommand().equals("Tournament")){
             ((JButton)e.getSource()).getTopLevelAncestor().requestFocus();
+
         }
         if (e.getActionCommand().equals("Exit")){
             if (view.showDialog("¿Desea salir del juego?", actualLayout)) {
@@ -155,8 +189,9 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
             //music.stopMusic();
             //music.runMusic(new File("data/Laser.wav"));
             //try {
-            actualLayout++;
+
                 stopMusic();
+                duringThread = true;
                 // isBack = true;
                 t.start();
                 soundNow = true;
@@ -166,8 +201,10 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
                             TimeUnit.MILLISECONDS.sleep(1600);
                             //music.stopMusic();
                             TimeUnit.MILLISECONDS.sleep(500);
-
+                            System.out.println("changing");
+                            actualLayout++;
                             view.changePanel(actualLayout.toString());
+                            duringThread = false;
                         }catch( InterruptedException e1) {
                             e1.printStackTrace();
                         }
@@ -380,6 +417,11 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     }
     private void switchAndChange(){
         switch (actualLayout) {
+            case 0:
+                if (view.showDialog("¿Desea salir del juego?", actualLayout)) {
+                    System.exit(0);
+                }
+                break;
             case 1:
                 if (view.showDialog("¿Desea salir del juego?", actualLayout)) {
                     System.exit(0);
@@ -403,8 +445,14 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
             case 7:
                 if (view.showDialog("Si abandona la partida sera penalizado.\n¿esta usted seguro de abandonar?", actualLayout)) {
                     actualLayout = 5;
-                    view.changePanel(actualLayout.toString());
+                    view.setResizable(true);
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    view.setSize((int)(screenSize.width*((float)25.0/45)), (int)(screenSize.height*(2.0/3)));
+                    view.setLocationRelativeTo(null);
+                    view.changePanel("5");
+                    System.out.println(actualLayout);
                 }
+                break;
             default:
                 actualLayout--;
                 view.changePanel(actualLayout.toString());
@@ -439,6 +487,13 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
     @Override
     public void focusGained(FocusEvent e) {
+
+        if(e.getSource().toString().equals(view.getConnexionView().getJtfDirection().toString())){
+            view.getConnexionView().changeTextField("DirectionIP");
+        }
+        if(e.getSource().toString().equals(view.getConnexionView().getjtfIp().toString())){
+            view.getConnexionView().changeTextField("Port");
+        }
         if(e.getSource().toString().equals(view.getJtfUsername().toString())){
             view.changeTextFields("UsernameL");
 
@@ -463,6 +518,13 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
     @Override
     public void focusLost(FocusEvent e) {
+
+        if(e.getSource().toString().equals(view.getConnexionView().getJtfDirection().toString())){
+            view.getConnexionView().changeTextFieldEmpty("DirectionIP");
+        }
+        if(e.getSource().toString().equals(view.getConnexionView().getjtfIp().toString())){
+            view.getConnexionView().changeTextFieldEmpty("Port");
+        }
         if(e.getSource().toString().equals(view.getJtfUsername().toString())){
             view.changeTextFieldsEmpty("UsernameL");
 
@@ -484,9 +546,27 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         }
 
 
-
-
-
     }
+
+    public boolean isOn() {
+        return isOn;
+    }
+
+    public void setOn(boolean on) {
+        isOn = on;
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean duringThread() {
+        return duringThread;
+    }
+
 }
 

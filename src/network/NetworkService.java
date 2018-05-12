@@ -41,18 +41,21 @@ public class NetworkService extends Thread {
     /**
      * constructor amb paramentres
      * @param finestra ens permetra actualitzar la finestra al rebre una dada
+     * @param text
+     * @param s
      */
-    public NetworkService(GameMainView finestra) {
+    public NetworkService(GameMainView finestra, String Direccion, String Port) {
         try {
+            int foo = Integer.parseInt(Port);
             this.isOn = false;
             this.finestra = finestra;
             // connectem amb el servidor i obrim els canals de comunicacio
-            this.socketToServer = new Socket(IP, PORT);
+            this.socketToServer = new Socket(Direccion, foo);
             this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
             this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
 
         } catch (IOException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
 
             JOptionPane.showMessageDialog(null, "No esta conectat al servidor, tanqui la finestra", "Error", JOptionPane.ERROR_MESSAGE);
             byebye = true;
