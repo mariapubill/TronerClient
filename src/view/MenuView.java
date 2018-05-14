@@ -29,6 +29,7 @@ public class MenuView extends JPanel {
     private JLabel game4;
     private JLabel tournament;
     private MyPanel jPanel;
+    private Font font;
     private JPanel jPanel2;
     private JList<User> userJList;
     private MainView mainView;
@@ -153,7 +154,7 @@ public class MenuView extends JPanel {
       // jPanel.add(makePanel(jPanel.getHeight(),mainView.getWidth()));
         name = new JLabel("DAVID");
         try{
-            Font font = Font.createFont(Font.TRUETYPE_FONT, new File("data/fonts/GearsOfPeace.ttf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("data/fonts/GearsOfPeace.ttf"));
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
             font = font.deriveFont(20f);
@@ -347,16 +348,16 @@ public class MenuView extends JPanel {
         jPanel.setLayout(null);
         jPanel.makePanel(mainView);
         jPanel.setBounds((int) (mainView.getWidth() / 6 + (0.22) * (mainView.getWidth())), 300,(int)((float)mainView.getWidth()/1.80),(int)((float)mainView.getHeight()/1.5));
-        game2.setBounds((int)((float)mainView.getWidth()/40+(mainView.getWidth()*(0.12))),-60+(int)(float)(jTable.getHeight()*1.51),200,200);
+        game2.setBounds((int)((float)mainView.getWidth()/40+(mainView.getWidth()*(0.12))),-60+(int)(float)(jTable.getHeight()*1.54),200,200);
 
-        game4.setBounds((int)((float)mainView.getWidth()/36+(mainView.getWidth()*(0.24))),-60+(int)(float)(jTable.getHeight()*1.51),200,200);
+        game4.setBounds((int)((float)mainView.getWidth()/36+(mainView.getWidth()*(0.24))),-60+(int)(float)(jTable.getHeight()*1.54),200,200);
 
 
-        tournament.setBounds((int)((float)mainView.getWidth()/40+(mainView.getWidth()*(0.36))),-60+(int)(float)(jTable.getHeight()*1.51),200,200);
+        tournament.setBounds((int)((float)mainView.getWidth()/40+(mainView.getWidth()*(0.36))),-60+(int)(float)(jTable.getHeight()*1.54),200,200);
 
         // System.out.println("Height"+(int)((float)mainView.getWidth()/4+(mainView.getWidth()*(0.36))));//490 ampliado //235 ampliado//211//286
         //  System.out.println("Width WWW"+jPanel.getY());
-        name.setBounds((int)((float)mainView.getWidth()/12+(mainView.getWidth()*(0.28))),-86+(int)(float)(jTable.getHeight()*1.5),200,200);
+        name.setBounds((int)((float)mainView.getWidth()/12+(mainView.getWidth()*(0.28))),-86+(int)(float)(jTable.getHeight()*1.515),200,200);
         //jTable.setPreferredSize(new Dimension(150,150));
         //jTable.getModel((makeTable(mainView)));
         //jTable = new JTable(model);
@@ -461,6 +462,47 @@ public class MenuView extends JPanel {
         jButton7.setActionCommand("Settings");
 
 
+    }
+
+    public JLabel getNamePlayer() {
+        return name;
+    }
+
+    public void setNamed(String name) {
+        font = font.deriveFont(32f);
+        this.name.setText(name);
+        this.name.setFont(font);
+    }
+
+    public JLabel getGame2() {
+        return game2;
+    }
+
+    public void setGame2(String game2) {
+        font.deriveFont(20f);
+        font = font.deriveFont(20f);
+        this.game2.setText(game2);
+        this.game2.setFont(font);
+    }
+
+    public JLabel getGame4() {
+        return game4;
+    }
+
+    public void setGame4(String game4) {
+        font.deriveFont(20f);
+        this.game4.setText(game4);
+        this.game4.setFont(font);
+    }
+
+    public JLabel getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(String tournament) {
+        font.deriveFont(20f);
+        this.tournament.setText(tournament);
+        this.tournament.setFont(font);
     }
 }
 

@@ -31,6 +31,15 @@ public class FunctionController extends Thread implements ActionListener {
             login = nService.checkIfIsOkay(view.getUserLogin());
             if(login){
                 actualLayout = 5;
+                User user  = nService.getUser();
+                System.out.println("entra");
+                System.out.println(user.getNickname());
+                view.getMenuView().setNamed((user.getNickname()));
+                view.getMenuView().setGame2(Integer.toString(user.recountType(1)));
+                view.getMenuView().setGame4(Integer.toString(user.recountType(2)));
+                view.getMenuView().setTournament(Integer.toString(user.recountType(3)));
+
+              //  user.getScore()
                 view.changePanel(actualLayout.toString());
             }else{
                 JOptionPane.showMessageDialog(null, "CAN'T LOGIN","Inane error", JOptionPane.ERROR_MESSAGE);

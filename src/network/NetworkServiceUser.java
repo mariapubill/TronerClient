@@ -130,7 +130,7 @@ public class NetworkServiceUser extends Thread {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             stopServerComunication();
             System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
         } catch (ClassNotFoundException e) {
@@ -138,7 +138,21 @@ public class NetworkServiceUser extends Thread {
         }
         return isOkay;
     }
-
+    public User getUser(){
+        User user = new User();
+        try{
+        user =(User)objectIn.readObject();
+        return user;
+        } catch (IOException e) {
+            //  e.printStackTrace();
+            stopServerComunication();
+            System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
+            return user;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return user;
+        }
+    }
     public boolean isOn() {
         return isOn;
     }
