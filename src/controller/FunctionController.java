@@ -166,7 +166,7 @@ public class FunctionController extends Thread implements ActionListener,WindowL
 
     @Override
     public void windowClosed(WindowEvent e) {
-            nService.writeUser(userActual);
+            //Service.writeUser(userActual);
     }
 
     @Override
@@ -210,5 +210,13 @@ public class FunctionController extends Thread implements ActionListener,WindowL
     @Override
     public void componentHidden(ComponentEvent e) {
 
+    }
+
+    public User getUserActual() {
+        return userActual;
+    }
+
+    public void setUserActual(User userActual) {
+        this.userActual = userActual;
     }
 }

@@ -49,6 +49,8 @@ public class GameController implements KeyListener {
         peticio = new Petition(key);
         if (key == KeyEvent.VK_RIGHT && keyAux != key) {
             if(key!=keyAux) {
+
+
                 nService.sendCommand(peticio);
                 keyAux = key;
             }
