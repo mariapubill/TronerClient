@@ -2,6 +2,7 @@
 package controller;
 
 
+import model.Ranking;
 import view.MainView;
 
 import javax.swing.*;
@@ -37,10 +38,14 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     private boolean activateP;
     private boolean isOn =false;
     private boolean end;
+    public static Ranking ranking;
+    private Server server;
+    private FunctionController functionController;
     private int sizeY = 800;
     private int sizeX = 600;
 
     public Controller(MainView view) {
+        ranking = new Ranking();
         closeSound = false;
         soundNow = false;
         this.view = view;
@@ -49,6 +54,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         acum = 0;
         end =false;
 
+
     }
 
     @Override
@@ -56,7 +62,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
         System.out.println(actualLayout);
         if(e.getActionCommand().equals("StartConnexion")){
        //     try {
-               Server server = new Server(view,this);
+               this.server = new Server(view,this);
                server.start();
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
@@ -437,7 +443,8 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
                 break;
             case 5:
                 if (view.showDialog("¿Desea volver a la pantalla de inicio?", actualLayout)) {
-
+              //      server.getNetworkService().getDoStreamO().writeObject("disconect");
+              //      server.getNetworkService().getDoStreamO().writeObject(functionController.getUserActual);
                     actualLayout = 1;
                     view.changePanel(actualLayout.toString());
                 }

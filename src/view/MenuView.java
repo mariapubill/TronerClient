@@ -3,6 +3,7 @@ package view;
 
 
 import controller.Controller;
+import model.Ranking;
 import model.User;
 
 import javax.swing.*;
@@ -280,7 +281,7 @@ public class MenuView extends JPanel {
         return jTable;
     }
 
-    public void changeSize(MainView mainView) {
+    public void changeSize(MainView mainView, Ranking ranking) {
         jPanel.setBounds((int) (mainView.getWidth() / 6 + (0.22) * (mainView.getWidth())), (int) ((float)    (0.09) * (mainView.getHeight())),(int)((float)mainView.getWidth()/1.80),(int)((float)mainView.getHeight()/1.5));
         jButton.setBounds((int) (mainView.getWidth() / 120 + (0.06) * (mainView.getWidth())), (int) (mainView.getHeight() / 12), 150 + (int) (mainView.getWidth() / 8), 30 + (int) (mainView.getHeight() / 8));
         jButton2.setBounds((int) (mainView.getWidth() / 120 + (0.06) * (mainView.getWidth())), (int) (mainView.getHeight() / 12 + (0.20) * (mainView.getHeight())), 150 + (int) (mainView.getWidth() / 8), 30 + (int) (mainView.getHeight() / 8));
@@ -362,6 +363,7 @@ public class MenuView extends JPanel {
         //jTable.getModel((makeTable(mainView)));
         //jTable = new JTable(model);
         this.jPanel.makePanel(mainView);
+        changeTable(ranking);
        /*
         jTable.setBounds((int)((float) (mainView.getWidth() / 95 + (0.12) * (mainView.getWidth()))), 600,(int)((float)mainView.getWidth()/1.80),mainView.getHeight()/3);
         jTable.setRowHeight(mainView.getHeight()/31);
@@ -389,6 +391,71 @@ public class MenuView extends JPanel {
         jButton7.setFocusPainted(false);
         jButton7.setFocusPainted(false);
 
+    }
+
+    public void changeTable(Ranking ranking) {
+        long cont = 0;
+        System.out.println(ranking.getUsers2x().size());
+        if(ranking.getUsers2x().size() != 0) {
+
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 10; j++) {
+
+                    switch (i) {
+                        case 0:
+                            System.out.println("ES ASI DE LARGO" + ranking.getUsers2x().size());
+//                        System.out.println(ranking.getUsers2x().get(j).getNickname());
+                            cont = 0;
+                            if (ranking.getUsers2x().get(j).getNickname().equals("--")) {
+                                jTable.getModel().setValueAt(ranking.getUsers2x().get(j).getNickname(), j, i);
+                            } else {
+
+                                for (int x = 0; x < ranking.getUsers2x().get(j).getScore().size(); x++) {
+                                    if (ranking.getUsers2x().get(j).getScore().get(x).getType().equals("2xGame")) {
+                                        cont = cont + ranking.getUsers2x().get(j).getScore().get(x).getPoints();
+                                        System.out.println(cont);
+                                    }
+
+                                }
+                                jTable.getModel().setValueAt(ranking.getUsers2x().get(j).getNickname() + "   " + cont, j, i);
+                            }
+                            break;
+                        case 1:
+                            cont = 0;
+                            if (ranking.getUsers4x().get(j).getNickname().equals("--")) {
+                                jTable.getModel().setValueAt(ranking.getUsers4x().get(j).getNickname(), j, i);
+                            } else {
+                                for (int x = 0; x < ranking.getUsers4x().get(j).getScore().size(); x++) {
+                                    if (ranking.getUsers4x().get(j).getScore().get(x).getType().equals("4xGame")) {
+                                        cont = cont + ranking.getUsers4x().get(j).getScore().get(x).getPoints();
+                                    }
+
+                                }
+                                jTable.getModel().setValueAt(ranking.getUsers4x().get(j).getNickname() + "   " + cont, j, i);
+                            }
+                            break;
+                        case 2:
+                            cont = 0;
+                            if (ranking.getUsersTournament().get(j).getNickname().equals("--")) {
+                                jTable.getModel().setValueAt(ranking.getUsersTournament().get(j).getNickname(), j, i);
+                            } else {
+                                for (int x = 0; x < ranking.getUsers2x().get(j).getScore().size(); x++) {
+                                    if (ranking.getUsersTournament().get(j).getScore().get(x).getType().equals("Tournament")) {
+                                        cont = cont + ranking.getUsers2x().get(j).getScore().get(x).getPoints();
+                                    }
+
+                                }
+                                jTable.getModel().setValueAt(ranking.getUsersTournament().get(j).getNickname() + "   " + cont, j, i);
+                            }
+
+                    }
+                }
+
+            }
+        }else{
+
+        }
     }
 
     private class MyPanel extends JPanel{
@@ -469,7 +536,7 @@ public class MenuView extends JPanel {
     }
 
     public void setNamed(String name) {
-        font = font.deriveFont(32f);
+        font = font.deriveFont(22f);
         this.name.setText(name);
         this.name.setFont(font);
     }
@@ -503,6 +570,14 @@ public class MenuView extends JPanel {
         font.deriveFont(20f);
         this.tournament.setText(tournament);
         this.tournament.setFont(font);
+    }
+
+    public JTable getjTable() {
+        return jTable;
+    }
+
+    public void setjTable(JTable jTable) {
+        this.jTable = jTable;
     }
 }
 

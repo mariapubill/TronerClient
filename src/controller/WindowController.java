@@ -4,14 +4,21 @@ import view.MainView;
 
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class WindowController implements ComponentListener {
+import static controller.Controller.ranking;
+
+
+public class WindowController implements WindowListener, ComponentListener{
     private MainView mainView;
     private Controller controller;
+
 
     public WindowController(MainView mainView,Controller controller){
         this.mainView = mainView;
         this.controller = controller;
+
     }
 
     public void componentResized(ComponentEvent e) {
@@ -19,7 +26,8 @@ public class WindowController implements ComponentListener {
      //   controller.setActualLayout(controller.getActualLayout());
         //controller.setActualLayout(controller.ge);
        // System.out.println(controller.getActualLayout());
-            mainView.getMenuView().changeSize(mainView);
+            mainView.getMenuView().changeSize(mainView,ranking);
+
             //mainView.getBgPanel().remove(controller.getActualLayout() - 1);
            // mainView.getBgPanel().add(controller.getActualLayout().toString(), selectJpanel());
            // mainView.changePanel(controller.getActualLayout().toString());
@@ -67,6 +75,43 @@ public class WindowController implements ComponentListener {
 
     @Override
     public void componentHidden(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        //CASO A = RESTAR PUNTOS
+
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
 
     }
 }

@@ -1,5 +1,6 @@
 package network;
 
+import model.Ranking;
 import model.User;
 import view.GameMainView;
 import view.MainView;
@@ -26,38 +27,37 @@ public class NetworkServiceUser extends Thread {
     private boolean isOn;
 
 
-
     /**
      * constructor amb paramentres
+     *
      * @param connexionView
      */
     public NetworkServiceUser(MainView mainView) {
-            int foo = 1;
-            this.isOn = false;
-            this.finestra = finestra;
-            String direction = mainView.getConnexionView().getJtfDirection().getText();
-            String port = mainView.getConnexionView().getjtfIp().getText();
-            System.out.println(port);
-            try {
-                 foo = Integer.parseInt(port);
-            }catch (Exception e){
-                 foo = 1;
-            }
-
-
-            try {
-                System.out.println(isOn+"no lo hace");
-                this.socketToServer = new Socket(direction, foo);
-                this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
-                this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
-                isOn = true;
-
-            } catch (Exception e) {
-                System.out.println(isOn+"La caga");
-             //   JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        int foo = 1;
+        this.isOn = false;
+        this.finestra = finestra;
+        String direction = mainView.getConnexionView().getJtfDirection().getText();
+        String port = mainView.getConnexionView().getjtfIp().getText();
+        System.out.println(port);
+        try {
+            foo = Integer.parseInt(port);
+        } catch (Exception e) {
+            foo = 1;
         }
 
+
+        try {
+            System.out.println(isOn + "no lo hace");
+            this.socketToServer = new Socket(direction, foo);
+            this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
+            this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
+            isOn = true;
+
+        } catch (Exception e) {
+            System.out.println(isOn + "La caga");
+            //   JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
 
     /**
@@ -79,15 +79,15 @@ public class NetworkServiceUser extends Thread {
     public void run() {
 
         try {
-            String aux1 =(String)objectIn.readObject();
-            System.out.println("ha llegit el client el seguent objecte "+ aux1);
+            String aux1 = (String) objectIn.readObject();
+            System.out.println("ha llegit el client el seguent objecte " + aux1);
 
 
-            while (isOn){
+            while (isOn) {
 
-                User hey = new User("client", "guai","email","data register", "data acces");
+                User hey = new User("client", "guai", "email", "data register", "data acces");
                 // User aux =(User)objectIn.readObject();
-               // System.out.println("el client ha llegit desde el while "+aux.getNickname());
+                // System.out.println("el client ha llegit desde el while "+aux.getNickname());
                 //escolta les actualizacions de lestat del model
                 //que envia el servidor quan algun client fa clic
                 //a al botor de send7
@@ -125,12 +125,12 @@ public class NetworkServiceUser extends Thread {
         boolean isOkay = false;
         try {
             doStreamO.writeObject(userToSend);
-            isOkay =(boolean)objectIn.readObject();
-            System.out.println("mirem si is okay "+ isOkay);
+            isOkay = (boolean) objectIn.readObject();
+            System.out.println("mirem si is okay " + isOkay);
 
 
         } catch (IOException e) {
-          //  e.printStackTrace();
+            //  e.printStackTrace();
             stopServerComunication();
             System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
         } catch (ClassNotFoundException e) {
@@ -138,11 +138,12 @@ public class NetworkServiceUser extends Thread {
         }
         return isOkay;
     }
-    public User getUser(){
+
+    public User getUser() {
         User user = new User();
-        try{
-        user =(User)objectIn.readObject();
-        return user;
+        try {
+            user = (User) objectIn.readObject();
+            return user;
         } catch (IOException e) {
             //  e.printStackTrace();
             stopServerComunication();
@@ -153,11 +154,56 @@ public class NetworkServiceUser extends Thread {
             return user;
         }
     }
+
     public boolean isOn() {
         return isOn;
     }
 
     public void setOn(boolean on) {
         isOn = on;
+    }
+
+    public Ranking getRanking() {
+        Ranking ranking = new Ranking();
+
+        try {
+            ranking = (Ranking) objectIn.readObject();
+            return ranking;
+        } catch (IOException e) {
+            //  e.printStackTrace();
+            stopServerComunication();
+            System.out.println("*** ESTA EL SERVIDOR EN EXECUCIO? ***");
+            return ranking;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return ranking;
+        }
+    }
+
+    public ObjectOutputStream getDoStreamO() {
+        return doStreamO;
+    }
+
+    public void setDoStreamO(ObjectOutputStream doStreamO) {
+        this.doStreamO = doStreamO;
+    }
+
+    public ObjectInputStream getObjectIn() {
+        return objectIn;
+    }
+
+    public void setObjectIn(ObjectInputStream objectIn) {
+        this.objectIn = objectIn;
+    }
+
+    public void writeUser(User user) {
+        try{
+            System.out.println("No se envia");
+            this.doStreamO.writeObject("UpdateDatabase");
+            //this.doStreamO.writeObject(user);
+        }catch (IOException io){
+            System.out.println("No se envia");
+        }
+
     }
 }

@@ -5,16 +5,18 @@ import network.NetworkServiceUser;
 import view.MainView;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class FunctionController extends Thread implements ActionListener {
+import static controller.Controller.ranking;
+
+public class FunctionController extends Thread implements ActionListener,WindowListener,ComponentListener {
     private NetworkServiceUser nService;
     private boolean login;
     private boolean signin;
     private MainView view;
     private Integer actualLayout = 1;
-    private User userAux;
+    private User userActual;
+
 
 
 
@@ -29,18 +31,24 @@ public class FunctionController extends Thread implements ActionListener {
         if (e.getActionCommand().equals("Login")){
             nService.sendParameter("login");
             login = nService.checkIfIsOkay(view.getUserLogin());
+            System.out.println(login+"      123145");
             if(login){
-                actualLayout = 5;
-                User user  = nService.getUser();
+                userActual  = nService.getUser();
                 System.out.println("entra");
-                System.out.println(user.getNickname());
-                view.getMenuView().setNamed((user.getNickname()));
-                view.getMenuView().setGame2(Integer.toString(user.recountType(1)));
-                view.getMenuView().setGame4(Integer.toString(user.recountType(2)));
-                view.getMenuView().setTournament(Integer.toString(user.recountType(3)));
+                System.out.println(userActual.getNickname());
+                view.getMenuView().setNamed((userActual.getNickname()));
+                view.getMenuView().setGame2(Integer.toString(userActual.recountType(1)));
 
+                view.getMenuView().setGame4(Integer.toString(userActual.recountType(2)));
+                view.getMenuView().setTournament(Integer.toString(userActual.recountType(3)));
+                ranking = nService.getRanking();
+                System.out.println("recibe ranking");
+                view.getMenuView().changeTable(ranking);
+                System.out.println("TENDRIA KE CAMB");
               //  user.getScore()
+                actualLayout = 5;
                 view.changePanel(actualLayout.toString());
+                System.out.println("faiòjdsfàsdijpfasi`dfjas`d");
             }else{
                 JOptionPane.showMessageDialog(null, "CAN'T LOGIN","Inane error", JOptionPane.ERROR_MESSAGE);
 
@@ -146,4 +154,61 @@ public class FunctionController extends Thread implements ActionListener {
     }
 
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+            nService.writeUser(userActual);
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+
+        view.getMenuView().changeSize(view,ranking);
+        view.getBgPanel().revalidate();
+        view.getBgPanel().repaint();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
+    }
 }
