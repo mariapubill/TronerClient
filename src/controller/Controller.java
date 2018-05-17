@@ -74,8 +74,6 @@ public class Controller extends Thread implements ActionListener, MouseListener,
                 //new Thread(music).start();
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 view.setSize((int)(screenSize.width*(0.6)), (int)(screenSize.height*(2.0/3)));
-                System.out.println(screenSize.width);
-                System.out.println(screenSize.height);
                 view.setLocationRelativeTo(null);
                 view.setResizable(true);
                }else {
@@ -442,6 +440,8 @@ public class Controller extends Thread implements ActionListener, MouseListener,
                 break;
             case 5:
                 if (view.showDialog("¿Desea volver a la pantalla de inicio?", actualLayout)) {
+                     server.disconnectUser();
+                 //   server.closeSession();
               //      server.getNetworkService().getDoStreamO().writeObject("disconect");
               //      server.getNetworkService().getDoStreamO().writeObject(functionController.getUserActual);
                     actualLayout = 1;

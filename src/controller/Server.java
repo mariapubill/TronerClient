@@ -4,11 +4,14 @@ package controller;
 import network.NetworkServiceUser;
 import view.MainView;
 
+import java.io.IOException;
+
 public class Server extends Thread {
     private NetworkServiceUser networkService;
     private FunctionController functionController;
     private Controller controller;
     private MainView mainView;
+  //  private NetworkServiceUser networkService;
 
     public Server(MainView mainView,Controller controller){
         this.mainView = mainView;
@@ -20,7 +23,7 @@ public class Server extends Thread {
 
     public void run(){
         System.out.println("run");
-        NetworkServiceUser networkService = new NetworkServiceUser(mainView);
+        networkService = new NetworkServiceUser(mainView);
         if(networkService.isOn()) {
             controller.setOn(true);
             functionController = new FunctionController(networkService, mainView);
@@ -38,5 +41,16 @@ public class Server extends Thread {
         this.networkService = networkService;
     }
 
+
+    public void closeSession() {
+
+    }
+    public void disconnectUser(){
+        try {
+            networkService.getDoStreamO().writeObject(functionController.getUserActual());//;functionController.getUserActual())
+        }catch (IOException e){
+
+        }
+    }
 
 }

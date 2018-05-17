@@ -58,12 +58,17 @@ public class FunctionController extends Thread implements ActionListener,WindowL
                 actualLayout = 5;
                 view.changePanel(actualLayout.toString());
                 userActual  = nService.getUser();
+                System.out.println("entra");
+                System.out.println(userActual.getNickname());
                 view.getMenuView().setNamed((userActual.getNickname()));
                 view.getMenuView().setGame2(Integer.toString(userActual.recountType(1)));
+
                 view.getMenuView().setGame4(Integer.toString(userActual.recountType(2)));
                 view.getMenuView().setTournament(Integer.toString(userActual.recountType(3)));
-                //ranking = nService.getRanking();
-               // view.getMenuView().changeTable(ranking);
+                ranking = nService.getRanking();
+                System.out.println("recibe ranking");
+                view.getMenuView().changeTable(ranking);
+                System.out.println("TENDRIA KE CAMB");
               //  user.getScore()
 
             }else{
@@ -214,7 +219,7 @@ public class FunctionController extends Thread implements ActionListener,WindowL
 
     @Override
     public void windowClosed(WindowEvent e) {
-            nService.writeUser(userActual);
+            //Service.writeUser(userActual);
     }
 
     @Override
@@ -432,5 +437,13 @@ public class FunctionController extends Thread implements ActionListener,WindowL
     }
     public boolean duringThread() {
         return duringThread;
+    }
+
+    public User getUserActual() {
+        return userActual;
+    }
+
+    public void setUserActual(User userActual) {
+        this.userActual = userActual;
     }
 }
