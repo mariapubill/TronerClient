@@ -33,7 +33,7 @@ public class ConnexionView extends JPanel{
         this.setOpaque(false);
         //this.setLayout(new GridBagLayout());
         this.setOpaque(false);
-
+        this.setSize(1000, 600);
         createButtons();
         createTextField();
         addComponents();

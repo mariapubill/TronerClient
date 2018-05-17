@@ -30,7 +30,7 @@ public class NetworkServiceUser extends Thread {
     /**
      * constructor amb paramentres
      *
-     * @param connexionView
+     * @param
      */
     public NetworkServiceUser(MainView mainView) {
         int foo = 1;
@@ -47,15 +47,13 @@ public class NetworkServiceUser extends Thread {
 
 
         try {
-            System.out.println(isOn + "no lo hace");
             this.socketToServer = new Socket(direction, foo);
             this.doStreamO = new ObjectOutputStream(socketToServer.getOutputStream());
             this.objectIn = new ObjectInputStream(socketToServer.getInputStream());
             isOn = true;
 
         } catch (Exception e) {
-            System.out.println(isOn + "La caga");
-            //   JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -85,7 +83,7 @@ public class NetworkServiceUser extends Thread {
 
             while (isOn) {
 
-                User hey = new User("client", "guai", "email", "data register", "data acces");
+                //User hey = new User("client", "guai", "email", "data register", "data acces");
                 // User aux =(User)objectIn.readObject();
                 // System.out.println("el client ha llegit desde el while "+aux.getNickname());
                 //escolta les actualizacions de lestat del model

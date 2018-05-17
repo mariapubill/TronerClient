@@ -14,11 +14,11 @@ public class Music implements Runnable  {
     private Clip sound;
     private int numClip = 0;
     private boolean musicOn = true;
-    private Controller controller;
+    private FunctionController controller;
     private boolean soundNow = false;
     private boolean changeMusic = true;
 
-    public Music(Controller controller){
+    public Music(FunctionController controller){
         this.controller = controller;
 
 

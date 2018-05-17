@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.TimeUnit;
 
-public class Controller extends Thread implements ActionListener, KeyListener, MouseListener, FocusListener {
+public class Controller extends Thread implements ActionListener, MouseListener, FocusListener {
     private Timer t;
     private int x;
     private int acum;
@@ -26,7 +26,6 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     private float size2;
     private int size4;
     private int size5;
-    private Music music;
     private boolean soundNow;
     private boolean closeSound;
     private boolean activate1=false;
@@ -43,13 +42,14 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
     private FunctionController functionController;
     private int sizeY = 800;
     private int sizeX = 600;
+    private Music music;
 
     public Controller(MainView view) {
         ranking = new Ranking();
         closeSound = false;
         soundNow = false;
         this.view = view;
-        music = new Music(this);
+        //music = new Music(this);
         this.run();
         acum = 0;
         end =false;
@@ -59,7 +59,6 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(actualLayout);
         if(e.getActionCommand().equals("StartConnexion")){
        //     try {
                this.server = new Server(view,this);
@@ -72,7 +71,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
             if(isOn) {
                    actualLayout = 1;
                    view.changePanel(actualLayout.toString());
-                new Thread(music).start();
+                //new Thread(music).start();
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 view.setSize((int)(screenSize.width*(0.6)), (int)(screenSize.height*(2.0/3)));
                 System.out.println(screenSize.width);
@@ -185,9 +184,9 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
     }
 
-    @Override
+  /*  @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 27) {
+       /* if (e.getKeyCode() == 27) {
           switchAndChange();
         }
         if (e.getKeyCode() == 10 && actualLayout == 1) {
@@ -226,7 +225,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
             } /*catch (InterruptedException e1) {
                 e1.printStackTrace();
-            }*/
+            }
 
 
         }
@@ -240,7 +239,7 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
 
     @Override
     public void keyReleased(KeyEvent e) {
-    }
+    }*/
 
     @Override
     public void run() {
@@ -457,7 +456,6 @@ public class Controller extends Thread implements ActionListener, KeyListener, M
                     view.setSize((int)(screenSize.width*((float)25.0/45)), (int)(screenSize.height*(2.0/3)));
                     view.setLocationRelativeTo(null);
                     view.changePanel("5");
-                    System.out.println(actualLayout);
                 }
                 break;
             default:

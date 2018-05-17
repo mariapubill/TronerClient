@@ -23,7 +23,6 @@ public class Server extends Thread {
         NetworkServiceUser networkService = new NetworkServiceUser(mainView);
         if(networkService.isOn()) {
             controller.setOn(true);
-            System.out.println("Estamos dentro puto");
             functionController = new FunctionController(networkService, mainView);
             mainView.registerFunctionController(functionController);
             System.out.println(controller.isOn()+"tred");

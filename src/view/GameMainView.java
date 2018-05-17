@@ -355,9 +355,9 @@ public class GameMainView extends JPanel{
 
             g.drawImage(bg, 0, 0, this.getWidth(), this.getHeight(), this);
         }
-        public void registerController(Controller controller){
-            this.addKeyListener(controller);
-        }
+       /* public void registerController(Controller controller){
+           // this.addKeyListener(controller);
+        }*/
 
         public Image getBg() {
             return bg;

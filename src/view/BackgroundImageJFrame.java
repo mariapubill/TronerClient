@@ -19,7 +19,7 @@ public class BackgroundImageJFrame extends JPanel {
         g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
     public void registerController(Controller controller){
-      this.addKeyListener(controller);
+      //this.addKeyListener(controller);
   }
 
     public Image getBg() {

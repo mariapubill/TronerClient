@@ -1,5 +1,4 @@
-import controller.Controller;
-import controller.WindowController;
+import controller.*;
 import view.MainView;
 
 public class ClientMain {
@@ -10,6 +9,7 @@ public class ClientMain {
        // BackgroundImageJFrame bImage =  new BackgroundImageJFrame();
         Controller controller = new Controller(view);
         WindowController windowController = new WindowController(view,controller);
+        KeyController keyController = new KeyController(view);
         view.registerController(controller);
         view.registerWindowController(windowController);
         view.setVisible(true);

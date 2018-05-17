@@ -5,6 +5,7 @@ package view;
 
 import controller.Controller;
 import controller.FunctionController;
+import controller.KeyController;
 import controller.WindowController;
 import model.User;
 
@@ -22,6 +23,7 @@ public class MainView extends JFrame{
     private LogInPanel card3;
     private SignInPanel card4;
     private MenuView menuView;
+    private SettingPanel settingPanel;
     private CardLayout layout;
     private GameMainView gameMainView;
     private ConnexionView connexionView;
@@ -31,7 +33,7 @@ public class MainView extends JFrame{
 
     public MainView(){
         this.setTitle("TRONER");
-        this.setMinimumSize(new Dimension(800,600));
+        this.setMinimumSize(new Dimension(1000,600));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
@@ -44,6 +46,7 @@ public class MainView extends JFrame{
         card2 = new LogSignPanel();
         card3 = new LogInPanel();
         card4 = new SignInPanel();
+        settingPanel = new SettingPanel();
         gameMainView = new GameMainView();
         connexionView = new ConnexionView();
         this.setContentPane(bgPanel);
@@ -57,9 +60,8 @@ public class MainView extends JFrame{
         bgPanel.add("7",gameMainView);
         bgPanel.add("0",connexionView);
         bgPanel.add("5",menuView);
-
+        bgPanel.add("6",settingPanel);
         layout.show(bgPanel, "0");
-
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setContentPane(bgPanel);
@@ -86,8 +88,8 @@ public class MainView extends JFrame{
         card4.registerControllerButton(c);
         card4.registerControllerMouse(c);
         card4.registerControllerFocus(c);
+        //settingPanel.registerController(c);
         menuView.registerControllerButtons(c);
-        this.addKeyListener(c);
     }
 
     public void registerFunctionController(FunctionController c){
@@ -95,7 +97,11 @@ public class MainView extends JFrame{
         card3.registerControllerButton(c);
         card4.registerControllerButton(c);
         menuView.registerControllerButton(c);
+        settingPanel.registerController(c);
+        this.addKeyListener(c);
+
     }
+
 
 
     public void runMusic(File file) {
@@ -248,6 +254,47 @@ public class MainView extends JFrame{
     public void setGameMainView(GameMainView gameMainView) {
         this.gameMainView = gameMainView;
     }
+
+    public void clearFieldsLogin(){
+        card3.changeTextFieldEmpty("UsernameL");
+        card3.changeTextFieldEmpty("PasswordL");
+    }
+    public void showDialog(String key){
+        switch(key){
+            case "t":
+                settingPanel.showDialogTop();
+                break;
+            case "r":
+                settingPanel.showDialogRight();
+                break;
+
+            case "d":
+                settingPanel.showDialogDown();
+                break;
+
+            case "l":
+                settingPanel.showDialogLeft();
+                break;
+        }
+    }
+
+    public void setCharTop(String s){
+        settingPanel.writeKeyTop(s);
+    }
+    public void setCharDown(String s){
+        settingPanel.writeKeyDown(s);
+    }
+    public void setCharLeft(String s){
+        settingPanel.writeKeyLeft(s);
+    }
+    public void setCharRight(String s){
+        settingPanel.writeKeyRight(s);
+    }
+
+    public void showErrorKeyMessage(String s){
+        settingPanel.showErrorMessage(s);
+    }
 }
+
 
 
